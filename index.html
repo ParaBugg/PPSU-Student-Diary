@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<title>PPSU Student Diary</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#f3f6fb;
+  --card:#fff;
+  --ink:#12203a;
+  --mute:#5a6782;
+  --acc:#2f5bea;
+  --hi:#ffd23f;
+  --line:#d9e0ee;
+
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d1526;
+    --card:#16213a;
+    --ink:#eaf0ff;
+    --mute:#9fb0d3;
+    --acc:#7ea0ff;
+    --line:#2a3a5e;
+  }
+}
+
+:root[data-theme="dark"]{
+  --bg:#0d1526;
+  --card:#16213a;
+  --ink:#eaf0ff;
+  --mute:#9fb0d3;
+  --acc:#7ea0ff;
+  --line:#2a3a5e;
+}
+
+html{
+  scroll-padding-top:env(safe-area-inset-top,0px);
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+
+h1,h2,h3{
+  font-family:"Bricolage Grotesque",Georgia,sans-serif;
+  line-height:1.1;
+  margin:0;
+}
+
+.wrap{
+  max-width:980px;
+  margin:0 auto;
+  padding:0 20px;
+}
+
+/* HEADER */
+
+header.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 0;
+  border-bottom:2px solid var(--ink);
+}
+
+.logo{
+  font:800 22px "Bricolage Grotesque",sans-serif;
+  cursor:pointer;
+  background:none;
+  border:0;
+  color:var(--ink);
+  padding:0;
+}
+
+.logo span{
+  background:var(--hi);
+  color:#12203a;
+  padding:0 6px;
+  border-radius:4px;
+}
+
+nav{
+  display:flex;
+  gap:16px;
+  align-items:center;
+}
+
+nav button,
+.chip,
+.btn{
+  font:inherit;
+  cursor:pointer;
+}
+
+nav button{
+  background:none;
+  border:0;
+  color:var(--ink);
+  padding:6px 2px;
+}
+
+nav button:hover{
+  color:var(--acc);
+}
+
+/* HERO */
+
+.hero{
+  padding:56px 0 28px;
+}
+
+.hero h1{
+  font-size:clamp(38px,8vw,76px);
+  font-weight:800;
+  max-width:14ch;
+}
+
+.hero p{
+  max-width:52ch;
+  color:var(--mute);
+  margin:16px 0 22px;
+}
+
+.search{
+  width:100%;
+  max-width:460px;
+  padding:12px 14px;
+  border:2px solid var(--ink);
+  border-radius:8px;
+  background:var(--card);
+  color:var(--ink);
+  font:inherit;
+}
+
+/* FILTER CHIPS */
+
+.chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:20px 0;
+}
+
+.chip{
+  border:1.5px solid var(--ink);
+  background:transparent;
+  color:var(--ink);
+  border-radius:99px;
+  padding:5px 14px;
+  font-size:15px;
+}
+
+.chip[aria-pressed="true"]{
+  background:var(--ink);
+  color:var(--bg);
+}
+
+/* ACCESSIBILITY */
+
+:focus-visible{
+  outline:3px solid var(--acc);
+  outline-offset:2px;
+}
+
+/* POST GRID */
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(270px,1fr));
+  gap:18px;
+  padding-bottom:40px;
+}
+
+.post{
+  background:var(--card);
+  border:1.5px solid var(--line);
+  border-radius:10px;
+  padding:20px;
+  cursor:pointer;
+  text-align:left;
+  color:inherit;
+  font:inherit;
+  display:block;
+  width:100%;
+}
+
+.post:hover{
+  border-color:var(--acc);
+}
+
+.post.feat{
+  grid-column:1/-1;
+  border:2px solid var(--ink);
+  background:var(--hi);
+  color:#12203a;
+}
+
+.post.feat h3{
+  font-size:clamp(26px,5vw,40px);
+}
+
+.tag{
+  font-size:14px;
+  color:var(--mute);
+}
+
+.feat .tag{
+  color:#3a3a1a;
+}
+
+.post h3{
+  font-size:22px;
+  margin:6px 0 8px;
+}
+
+/* ARTICLE */
+
+.article{
+  max-width:680px;
+  padding:40px 0 60px;
+}
+
+.article h1{
+  font-size:clamp(32px,6vw,52px);
+  margin:10px 0 18px;
+}
+
+.article p{
+  margin:0 0 16px;
+}
+
+.back{
+  background:none;
+  border:0;
+  color:var(--acc);
+  font:inherit;
+  cursor:pointer;
+  padding:0;
+  margin-top:24px;
+}
+
+/* COMMENTS */
+
+.comments{
+  margin-top:36px;
+  border-top:2px solid var(--ink);
+  padding-top:20px;
+}
+
+.c{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:10px 14px;
+  margin:10px 0;
+}
+
+.c b{
+  font-size:15px;
+}
+
+/* FORMS */
+
+.in{
+  padding:10px;
+  border:1.5px solid var(--ink);
+  border-radius:8px;
+  background:var(--card);
+  color:var(--ink);
+  font:inherit;
+  width:100%;
+  margin:6px 0;
+}
+
+.btn{
+  background:var(--ink);
+  color:var(--bg);
+  border:0;
+  border-radius:8px;
+  padding:10px 18px;
+  font-weight:700;
+}
+
+.btn:hover{
+  background:var(--acc);
+  color:#fff;
+}
+
+.btn:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+/* BOX */
+
+.box{
+  max-width:520px;
+  padding:40px 0 60px;
+}
+
+.box h2{
+  font-size:34px;
+  margin-bottom:14px;
+}
+
+.empty{
+  color:var(--mute);
+  padding:20px 0 40px;
+}
+
+/* FOOTER */
+
+footer{
+  border-top:2px solid var(--ink);
+  padding:20px 0 30px;
+  color:var(--mute);
+  font-size:15px;
+}
+
+/* TABLE */
+
+.tbl{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:14px;
+}
+
+.tbl td{
+  border-bottom:1px solid var(--line);
+  padding:8px 4px;
+}
+
+.tbl button{
+  background:none;
+  border:0;
+  color:#d33;
+  cursor:pointer;
+  font:inherit;
+}
+
+/* MOBILE */
+
+@media(max-width:560px){
+
+  header.top{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:6px;
+  }
+
+  nav{
+    flex-wrap:wrap;
+    gap:4px 14px;
+  }
+
+  .hero{
+    padding-top:36px;
+  }
+}
+
+.post h3,
+.article h1,
+.article p,
+.c{
+  overflow-wrap:anywhere;
+}
+
+.post{
+  min-width:0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+<header class="top">
+
+  <button class="logo" onclick="go('home')">
+    PPSU <span>Student Diary</span>
+  </button>
+
+  <nav>
+    <button onclick="go('home')">Home</button>
+    <button onclick="go('about')">About</button>
+    <button onclick="go('write')">Write a post</button>
+  </nav>
+
+</header>
+
+<main id="app"></main>
+
+<footer>
+  <div>An unofficial student blog for PPSU students.</div>
+  <div>Made for a Web Application Development project.</div>
+  <div style="margin-top:8px;font-weight:700;color:var(--ink);">
+    © 2026 — Created by <span style="color:var(--acc);">NIRALI</span>
+  </div>
+</footer>
+
+
+</div>
+
+<script>
+
+/* =========================================================
+   FIREBASE CONFIGURATION
+   ========================================================= */
+
+var FIREBASE_CONFIG=null;
+
+var FB_URL="https://www.gstatic.com/firebasejs/10.12.2/";
+
+
+/* =========================================================
+   DEFAULT CATEGORIES
+   ========================================================= */
+
+var defaults=[
+  "Exams",
+  "Hostel & PG",
+  "Money",
+  "Careers",
+  "Wellbeing",
+  "Campus life",
+  "Other"
+];
+
+
+/* =========================================================
+   SAMPLE POSTS
+   ========================================================= */
+
+var seed=[
+ {
+  "id":1,
+  "cat":"Exams",
+  "title":"How to study in the last 7 days before exams",
+  "by":"Riya",
+  "date":"12 Sep 2026",
+  "body":[
+   "Seven days is enough if you stop trying to read everything. Start by listing every unit and marking each one as strong, okay or weak.",
+   "Spend days 1 to 3 on weak units only. Use previous year papers to see which questions repeat, and write the answers by hand at least once.",
+   "Days 4 to 6: revise the okay units and solve one full paper in exam timing. Day 7: light revision, formulas and definitions only, and sleep early."
+  ]
+ },
+
+ {
+  "id":2,
+  "cat":"Hostel & PG",
+  "title":"Surviving your first month in hostel",
+  "by":"Jay",
+  "date":"8 Sep 2026",
+  "body":[
+   "Pack a power strip, a lock, a small first aid kit and a bucket. You will use all four in week one.",
+   "Keep a fixed sleep time even when the floor is noisy. Earplugs are the best 50 rupees you will spend.",
+   "Introduce yourself to your floor on day one. The people next door become your notes, your lift to the station and your emergency contact."
+  ]
+ },
+
+ {
+  "id":3,
+  "cat":"Money",
+  "title":"Budgeting on a student allowance",
+  "by":"Hetvi",
+  "date":"2 Sep 2026",
+  "body":[
+   "Split your monthly money into needs, food and fun before you spend anything. Write the numbers down, even in a notes app.",
+   "Track UPI spends weekly. Most of the leak is small, repeated orders, not big purchases.",
+   "Keep a small emergency amount untouched. Future you will be grateful when a laptop charger dies."
+  ]
+ },
+
+ {
+  "id":4,
+  "cat":"Careers",
+  "title":"5 free tools every college student should use",
+  "by":"Dev",
+  "date":"28 Aug 2026",
+  "body":[
+   "Notion or Google Keep for notes, Google Calendar for deadlines, Canva for presentations, GitHub for code, and LinkedIn for a profile that starts before placement season.",
+   "Set up all five in one weekend. Small habits, used daily, beat fancy tools used once."
+  ]
+ },
+
+ {
+  "id":5,
+  "cat":"Wellbeing",
+  "title":"Handling stress during internals",
+  "by":"Mansi",
+  "date":"20 Aug 2026",
+  "body":[
+   "Stress is normal, but carrying it alone makes it heavier. Talk to a friend, a senior or a faculty member you trust.",
+   "Walk for ten minutes between study blocks. Drink water. Put the phone in another room for one hour a day.",
+   "If stress stops you from sleeping or eating for several days, speak to a counsellor or someone at home."
+  ]
+ },
+
+ {
+  "id":6,
+  "cat":"Campus life",
+  "title":"Making the most of clubs and fests",
+  "by":"Krish",
+  "date":"14 Aug 2026",
+  "body":[
+   "Join one club for skills and one for fun. Volunteering for a fest teaches event planning, teamwork and calm under pressure.",
+   "Do not wait until final year. Your first year is the easiest time to try things and quit what does not fit."
+  ]
+ }
+
+].map(function(p,i){
+
+  return {
+    id:"s"+(i+1),
+    cat:p.cat,
+    title:p.title,
+    by:p.by,
+    createdAt:Date.parse(p.date),
+    body:p.body.join("\n\n")
+  };
+
+});
+
+
+/* =========================================================
+   GLOBAL VARIABLES
+   ========================================================= */
+
+var posts=[];
+var cat="All";
+var q="";
+var mode="local";
+
+var app=document.getElementById("app");
+
+
+/* =========================================================
+   HELPER FUNCTIONS
+   ========================================================= */
+
+function $(id){
+  return document.getElementById(id);
+}
+
+
+function esc(s){
+
+  return String(s).replace(
+    /[&<>"]/g,
+    function(c){
+
+      return {
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;"
+      }[c];
+
+    }
+  );
+
+}
+
+
+function fmt(n){
+
+  return new Date(n).toLocaleDateString(
+    "en-GB",
+    {
+      day:"numeric",
+      month:"short",
+      year:"numeric"
+    }
+  );
+
+}
+
+
+function lsGet(k,d){
+
+  try{
+
+    return JSON.parse(
+      localStorage.getItem(k)
+    ) || d;
+
+  }catch(e){
+
+    return d;
+
+  }
+
+}
+
+
+function lsSet(k,v){
+
+  try{
+
+    localStorage.setItem(
+      k,
+      JSON.stringify(v)
+    );
+
+  }catch(e){}
+
+}
+
+
+/* =========================================================
+   LOCAL STORAGE DATABASE
+   ========================================================= */
+
+var S={
+
+  list:function(){
+
+    return Promise.resolve(
+      lsGet("ppsu_posts",[])
+    );
+
+  },
+
+  add:function(p){
+
+    var a=lsGet("ppsu_posts",[]);
+
+    p.id="l"+Date.now();
+
+    a.push(p);
+
+    lsSet("ppsu_posts",a);
+
+    return Promise.resolve(p.id);
+
+  },
+
+  comments:function(id){
+
+    return Promise.resolve(
+      lsGet("ppsu_c_"+id,[])
+    );
+
+  },
+
+  comment:function(id,c){
+
+    var a=lsGet(
+      "ppsu_c_"+id,
+      []
+    );
+
+    a.push(c);
+
+    lsSet(
+      "ppsu_c_"+id,
+      a
+    );
+
+    return Promise.resolve();
+
+  }
+
+};
+
+
+/* =========================================================
+   FIREBASE
+   ========================================================= */
+
+function initFb(){
+
+  if(!FIREBASE_CONFIG)
+    return Promise.resolve();
+
+  return Promise.all([
+
+    import(
+      FB_URL+"firebase-app.js"
+    ),
+
+    import(
+      FB_URL+"firebase-firestore.js"
+    )
+
+  ]).then(function(m){
+
+    var f=m[1];
+
+    var db=f.getFirestore(
+      m[0].initializeApp(
+        FIREBASE_CONFIG
+      )
+    );
+
+    S={
+
+      list:function(){
+
+        return f.getDocs(
+          f.query(
+            f.collection(db,"posts"),
+            f.orderBy(
+              "createdAt",
+              "desc"
+            )
+          )
+        ).then(function(s){
+
+          return s.docs.map(
+            function(d){
+
+              var x=d.data();
+
+              x.id=d.id;
+
+              return x;
+
+            }
+          );
+
+        });
+
+      },
+
+      add:function(p){
+
+        return f.addDoc(
+          f.collection(db,"posts"),
+          p
+        ).then(function(r){
+
+          return r.id;
+
+        });
+
+      },
+
+      comments:function(id){
+
+        return f.getDocs(
+          f.query(
+            f.collection(db,"comments"),
+            f.where(
+              "postId",
+              "==",
+              id
+            )
+          )
+        ).then(function(s){
+
+          return s.docs
+            .map(function(d){
+              return d.data();
+            })
+            .sort(function(a,b){
+              return a.createdAt-b.createdAt;
+            });
+
+        });
+
+      },
+
+      comment:function(id,c){
+
+        c.postId=id;
+
+        return f.addDoc(
+          f.collection(db,"comments"),
+          c
+        );
+
+      }
+
+    };
+
+    mode="online";
+
+  }).catch(function(){});
+
+}
+
+
+/* =========================================================
+   LOAD POSTS
+   ========================================================= */
+
+function load(){
+
+  return S.list().then(function(u){
+
+    posts=u
+      .concat(seed)
+      .sort(function(a,b){
+
+        return b.createdAt-a.createdAt;
+
+      });
+
+  });
+
+}
+
+
+/* =========================================================
+   GET ALL CATEGORIES
+   ========================================================= */
+
+function allCats(){
+
+  var c=defaults.slice();
+
+  posts.forEach(function(p){
+
+    if(
+      p.cat &&
+      c.indexOf(p.cat)<0
+    ){
+
+      c.push(p.cat);
+
+    }
+
+  });
+
+  return c;
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+function go(v,id){
+
+  window.scrollTo(0,0);
+
+  if(v=="post")
+    post(id);
+
+  else
+    ({
+      home:home,
+      about:about,
+      write:write
+    })[v]();
+
+}
+
+
+/* =========================================================
+   HOME PAGE
+   ========================================================= */
+
+function home(){
+
+  app.innerHTML=
+
+    '<section class="hero">'+
+
+      '<h1>Real tips from PPSU students</h1>'+
+
+      '<p>'+
+      'Study plans, hostel hacks, money advice and campus stories, written by students for students. Write about any topic you like.'+
+      '</p>'+
+
+      '<input class="search" id="s" '+
+      'placeholder="Search posts" '+
+      'aria-label="Search posts" '+
+      'value="'+esc(q)+'">'+
+
+    '</section>'+
+
+    '<div class="chips" id="chips"></div>'+
+
+    '<div class="grid" id="list">'+
+      '<p class="empty">Loading posts...</p>'+
+    '</div>';
+
+
+  $("s").oninput=function(e){
+
+    q=e.target.value;
+
+    list();
+
+  };
+
+
+  load()
+    .then(function(){
+
+      chips();
+
+      list();
+
+    })
+    .catch(function(){
+
+      $("list").innerHTML=
+        '<p class="empty">'+
+        'Could not load posts. Check your internet connection and refresh.'+
+        '</p>';
+
+    });
+
+}
+
+
+/* =========================================================
+   CATEGORY CHIPS
+   ========================================================= */
+
+function chips(){
+
+  $("chips").innerHTML=
+
+    ["All"]
+    .concat(allCats())
+    .map(function(c){
+
+      return '<button class="chip" '+
+        'aria-pressed="'+(c==cat)+'" '+
+        'data-c="'+esc(c)+'">'+
+        esc(c)+
+        '</button>';
+
+    })
+    .join("");
+
+
+  $("chips").onclick=function(e){
+
+    var c=e.target.dataset.c;
+
+    if(c){
+
+      cat=c;
+
+      chips();
+
+      list();
+
+    }
+
+  };
+
+}
+
+
+/* =========================================================
+   POST LIST
+   ========================================================= */
+
+function list(){
+
+  var r=posts.filter(function(p){
+
+    return (
+
+      cat=="All" ||
+      p.cat==cat
+
+    ) &&
+
+    (
+
+      p.title+p.body
+    )
+    .toLowerCase()
+    .indexOf(
+      q.toLowerCase()
+    )>-1;
+
+  });
+
+
+  if(!r.length){
+
+    $("list").innerHTML=
+      '<p class="empty">'+
+      'No posts match. Try another word or pick All.'+
+      '</p>';
+
+    return;
+
+  }
+
+
+  $("list").innerHTML=
+
+    r.map(function(p,i){
+
+      return '<button class="post'+
+
+        (
+          i==0 &&
+          cat=="All" &&
+          !q
+          ?' feat':''
+        )+
+
+        '" onclick="go(\'post\',\''+
+        p.id+
+        '\')">'+
+
+        '<div class="tag">'+
+        esc(p.cat)+
+        ' · '+
+        fmt(p.createdAt)+
+        '</div>'+
+
+        '<h3>'+
+        esc(p.title)+
+        '</h3>'+
+
+        '<div class="tag">'+
+        'By '+
+        esc(p.by)+
+        '</div>'+
+
+        '</button>';
+
+    })
+    .join("");
+
+}
+
+
+/* =========================================================
+   SINGLE POST PAGE
+   ========================================================= */
+
+function post(id){
+
+  (
+    posts.length
+      ?Promise.resolve()
+      :load()
+  )
+  .then(function(){
+
+    var p=posts.filter(
+      function(x){
+        return x.id==id;
+      }
+    )[0];
+
+
+    if(!p){
+
+      home();
+
+      return;
+
+    }
+
+
+    return S.comments(id)
+
+      .then(function(cs){
+
+        var cm=
+
+          cs.length
+
+          ?
+
+          cs.map(function(c){
+
+            return '<div class="c">'+
+              '<b>'+
+              esc(c.by)+
+              '</b><br>'+
+              esc(c.text)+
+              '</div>';
+
+          }).join("")
+
+          :
+
+          '<p class="empty" style="padding:8px 0">'+
+          'No comments yet. Be the first.'+
+          '</p>';
+
+
+        app.innerHTML=
+
+          '<article class="article">'+
+
+            '<button class="back" onclick="go(\'home\')">'+
+            'Back to all posts'+
+            '</button>'+
+
+            '<div class="tag" style="margin-top:20px">'+
+            esc(p.cat)+
+            ' · '+
+            fmt(p.createdAt)+
+            ' · By '+
+            esc(p.by)+
+            '</div>'+
+
+            '<h1>'+
+            esc(p.title)+
+            '</h1>'+
+
+            p.body
+              .split(/\n\s*\n/)
+              .map(function(t){
+
+                return '<p>'+
+                  esc(t)+
+                  '</p>';
+
+              })
+              .join("")+
+
+            '<section class="comments">'+
+
+              '<h2 style="font-size:26px">'+
+              'Comments'+
+              '</h2>'+
+
+              cm+
+
+              '<input class="in" id="cn" '+
+              'placeholder="Your name" '+
+              'value="'+
+              esc(lsGet("ppsu_name",""))+
+              '">' +
+
+              '<textarea class="in" id="ct" rows="3" '+
+              'placeholder="Write a comment"></textarea>'+
+
+              '<button class="btn" id="cb">'+
+              'Post comment'+
+              '</button>'+
+
+            '</section>'+
+
+          '</article>';
+
+
+        $("cb").onclick=function(){
+
+          var n=
+            $("cn")
+            .value
+            .trim()
+            .slice(0,50);
+
+          var t=
+            $("ct")
+            .value
+            .trim()
+            .slice(0,500);
+
+
+          if(!n||!t){
+
+            alert(
+              "Enter your name and a comment."
+            );
+
+            return;
+
+          }
+
+
+          lsSet(
+            "ppsu_name",
+            n
+          );
+
+
+          $("cb").disabled=true;
+
+
+          S.comment(
+            id,
+            {
+              by:n,
+              text:t,
+              createdAt:Date.now()
+            }
+          )
+          .then(function(){
+
+            post(id);
+
+          })
+          .catch(function(){
+
+            $("cb").disabled=false;
+
+            alert(
+              "Could not post your comment. Check your connection and try again."
+            );
+
+          });
+
+        };
+
+      });
+
+  })
+  .catch(function(){
+
+    alert(
+      "Could not open this post. Check your connection and try again."
+    );
+
+  });
+
+}
+
+
+/* =========================================================
+   ABOUT PAGE
+   ========================================================= */
+
+function about(){
+
+  app.innerHTML=
+
+    '<section class="box">'+
+
+      '<h2>About this blog</h2>'+
+
+      '<p>'+
+      'PPSU Student Diary collects practical advice from students at P P Savani University, Surat. It covers exams, hostel life, money, careers, wellbeing and campus events.'+
+      '</p>'+
+
+      '<p>'+
+      'You are not limited to these topics. On the Write a post page, select Other and type any topic you want.'+
+      '</p>'+
+
+      '<p>'+
+      'This is an unofficial student project and is not run by the university.'+
+      '</p>'+
+
+    '</section>';
+
+}
+
+
+/* =========================================================
+   WRITE A POST PAGE
+   ========================================================= */
+
+function write(){
+
+  app.innerHTML=
+
+    '<section class="box">'+
+
+      '<h2>Write a post</h2>'+
+
+      '<input class="in" id="t" '+
+      'placeholder="Post title" '+
+      'maxlength="120">'+
+
+
+      '<select class="in" id="c">'+
+
+        '<option value="">Choose a topic</option>'+
+
+        allCats()
+          .map(function(c){
+
+            return '<option value="'+
+              esc(c)+
+              '">'+
+              esc(c)+
+              '</option>';
+
+          })
+          .join("")+
+
+      '</select>'+
+
+
+      '<input class="in" id="otherTopic" '+
+      'placeholder="Enter your own topic" '+
+      'maxlength="30" '+
+      'style="display:none">'+
+
+
+      '<input class="in" id="a" '+
+      'placeholder="Your name" '+
+      'maxlength="50" '+
+      'value="'+
+      esc(lsGet("ppsu_name",""))+
+      '">'+
+
+
+      '<textarea class="in" id="b" rows="8" '+
+      'maxlength="10000" '+
+      'placeholder="Write your post here. Leave a blank line between paragraphs."></textarea>'+
+
+
+      '<button class="btn" id="pb">'+
+      'Publish post'+
+      '</button>'+
+
+    '</section>';
+
+
+  /* SHOW CUSTOM TOPIC INPUT */
+
+  $("c").onchange=function(){
+
+    if(this.value=="Other"){
+
+      $("otherTopic").style.display="block";
+
+      $("otherTopic").focus();
+
+    }else{
+
+      $("otherTopic").style.display="none";
+
+      $("otherTopic").value="";
+
+    }
+
+  };
+
+
+  /* PUBLISH */
+
+  $("pb").onclick=function(){
+
+    var t=
+      $("t")
+      .value
+      .trim();
+
+
+    var c=
+      $("c")
+      .value;
+
+
+    var custom=
+      $("otherTopic")
+      .value
+      .replace(/\s+/g," ")
+      .trim();
+
+
+    var a=
+      $("a")
+      .value
+      .trim();
+
+
+    var b=
+      $("b")
+      .value
+      .trim();
+
+
+    /* USE CUSTOM TOPIC */
+
+    if(c=="Other"){
+
+      c=custom;
+
+    }
+
+
+    /* MATCH EXISTING CATEGORY */
+
+    allCats().forEach(function(x){
+
+      if(
+        x.toLowerCase()==
+        c.toLowerCase()
+      ){
+
+        c=x;
+
+      }
+
+    });
+
+
+    /* VALIDATION */
+
+    if(!t||!c||!a||!b){
+
+      alert(
+        "Fill in the title, topic, your name and the post."
+      );
+
+      return;
+
+    }
+
+
+    lsSet(
+      "ppsu_name",
+      a
+    );
+
+
+    $("pb").disabled=true;
+
+    $("pb").textContent=
+      "Publishing...";
+
+
+    S.add({
+
+      title:t,
+      cat:c,
+      by:a,
+      body:b,
+      createdAt:Date.now()
+
+    })
+    .then(function(id){
+
+      return load()
+        .then(function(){
+
+          go("post",id);
+
+        });
+
+    })
+    .catch(function(){
+
+      $("pb").disabled=false;
+
+      $("pb").textContent=
+        "Publish post";
+
+      alert(
+        "Could not publish. Check your connection and try again."
+      );
+
+    });
+
+  };
+
+}
+
+
+/* =========================================================
+   START APPLICATION
+   ========================================================= */
+
+initFb().then(function(){
+
+  document
+    .querySelector("footer")
+    .insertAdjacentHTML(
+      "beforeend",
+      "<br>"+
+      (
+        mode=="online"
+        ?
+        "Posts are shared with everyone who visits."
+        :
+        "Posts are saved only in this browser."
+      )
+    );
+
+  home();
+
+});
+
+</script>
+
+</body>
+</html>
